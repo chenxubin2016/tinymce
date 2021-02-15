@@ -15,7 +15,7 @@ describe('browser.tinymce.core.keyboard.PageUpDownKeyTest', () => {
   const platform = PlatformDetection.detect();
 
   context('Page Up', () => {
-    it('caret is escape outside the node', () => {
+    it('TINY-4612: caret should be placed before the inline element if it is at the start of it', () => {
       const editor = hook.editor();
       editor.setContent('<p>text<a href="google.com">link</a></p>');
       TinySelections.setCursor(editor, [ 0, 1, 0 ], 0);
@@ -28,7 +28,7 @@ describe('browser.tinymce.core.keyboard.PageUpDownKeyTest', () => {
       }
     });
 
-    it('caret is at the end of an inline element, escape outside the node', () => {
+    it('TINY-4612: caret should be placed before the inline element if it is at the end of it', () => {
       const editor = hook.editor();
       editor.setContent('<p>text<a href="google.com">link</a>text</p>');
       TinySelections.setCursor(editor, [ 0, 1, 0 ], 4);
@@ -40,7 +40,8 @@ describe('browser.tinymce.core.keyboard.PageUpDownKeyTest', () => {
         TinyAssertions.assertCursor(editor, [ 0 ], 1);
       }
     });
-    it('caret is not at the beginning/end of an inline element, not escape', () => {
+
+    it('TINY-4612: caret wont move if it is not at the beginning/end of the inline element', () => {
       const editor = hook.editor();
       editor.setContent('<p>text<a href="google.com">link</a>text</p>');
       TinySelections.setCursor(editor, [ 0, 1, 0 ], 2);
@@ -50,7 +51,7 @@ describe('browser.tinymce.core.keyboard.PageUpDownKeyTest', () => {
   });
 
   context('Page Down', () => {
-    it('caret is at the beginning of an inline element, escape outside the node', () => {
+    it('TINY-4612: caret should be placed after the inline element if it is at the start of it', () => {
       const editor = hook.editor();
       editor.setContent('<p>text<a href="google.com">link</a>text</p>');
       TinySelections.setCursor(editor, [ 0, 1, 0 ], 0);
@@ -63,7 +64,7 @@ describe('browser.tinymce.core.keyboard.PageUpDownKeyTest', () => {
       }
     });
 
-    it('caret is at the end of an inline element, escape outside the node', () => {
+    it('TINY-4612: caret should be placed after the inline element if it is at the end of it', () => {
       const editor = hook.editor();
       editor.setContent('<p>text<a href="google.com">link</a>text</p>');
       TinySelections.setCursor(editor, [ 0, 1, 0 ], 4);
@@ -76,7 +77,7 @@ describe('browser.tinymce.core.keyboard.PageUpDownKeyTest', () => {
       }
     });
 
-    it('caret is not at the beginning/end of an inline element, not escape', () => {
+    it('TINY-4612: caret wont move if it is not at the beginning/end of the inline element', () => {
       const editor = hook.editor();
       editor.setContent('<p>text<a href="google.com">link</a>text</p>');
       TinySelections.setCursor(editor, [ 0, 1, 0 ], 2);
